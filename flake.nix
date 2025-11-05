@@ -275,12 +275,18 @@
       default = {
         path = ./.;
         description = "SSH + Rclone dev environment";
+        ignore = ["README.md" "LICENSE"];
         welcomeText = ''
           # SSH + Rclone Dev Environment
+
           Get started:
+
           1. Edit the top part of "flake.nix". Set project name, description, shell attributes.
+
           2. Run "nix develop" to enter the shell.
+
           3. Run "server setup" to setup connection.
+
           4. Use "server help" to list available commands
         '';
       };

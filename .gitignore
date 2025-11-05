@@ -210,3 +210,4 @@ __marimo__/
 .server.env
 .rclone-ignore
 *.log
+.env

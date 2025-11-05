@@ -111,13 +111,14 @@
             echo "🚀 Syncing local → remote..."
             touch .rclone-ignore
             if [ -d .git ]; then
-              git ls-files --others --ignored --exclude-standard > .rclone-ignore
+              git ls-files --others --ignored --exclude-standard | grep -vE '^\.env($|/)' > .rclone-ignore
             fi
             ${pkgs.rclone}/bin/rclone sync --log-level ERROR --transfers 16 --checkers 8 \
               --sftp-use-insecure-cipher --sftp-disable-hashcheck \
-              --exclude '*.log' --exclude '*.nix' --exclude '*.env' \
-              --exclude '.git*' --exclude 'flake.lock' --exclude 'README.md' \
+              --exclude '*.log' --exclude '*.nix' --exclude '.server.env' \
+              --exclude '.git/**' --exclude '/.git/**' --exclude 'flake.lock' --exclude 'README.md' \
               --exclude '.rclone-ignore' --exclude-from .rclone-ignore \
+              --exclude 'LICENSE' --exclude '.gitignore' \
               -P "$LOCAL_PATH" ":sftp,host=$REMOTE_SERVER,user=$REMOTE_USERNAME,port=$REMOTE_PORT,key_file=$SSH_KEY:$REMOTE_PATH"
             rm -f .rclone-ignore
           '';

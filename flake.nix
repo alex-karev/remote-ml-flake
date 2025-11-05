@@ -275,7 +275,6 @@
       default = {
         path = ./.;
         description = "SSH + Rclone dev environment";
-        ignore = ["README.md" "LICENSE"];
         welcomeText = ''
           # SSH + Rclone Dev Environment
 
